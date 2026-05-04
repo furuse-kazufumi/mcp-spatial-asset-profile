@@ -43,6 +43,8 @@ Built on: mcp-3d v1 (puruyan2525, April 2025)
 
 ## Asset Model (v2)
 
+![Schema structure](assets/slides/fig_01_architecture.png)
+
 ```json
 {
   "version": "2.0",
@@ -62,6 +64,9 @@ Built on: mcp-3d v1 (puruyan2525, April 2025)
 
 ## 8 Asset Kinds
 
+![Four representations side by side](assets/slides/fig_03_representations.png)
+
+
 **Core (v1 + v2):**
 - `point-cloud` — PLY, PCD, LAS, NPY
 - `mesh` — OBJ, glTF, GLB
@@ -77,6 +82,8 @@ Built on: mcp-3d v1 (puruyan2525, April 2025)
 ---
 
 ## Segmentation Pipeline
+
+![Multi-view segmentation workflow](assets/slides/fig_02_pipeline.png)
 
 ```
 Source (point-cloud)
@@ -100,6 +107,8 @@ Every step → new asset_id, full `derived_from` provenance.
 ---
 
 ## Traceability Graph
+
+![Stanford Bunny head extraction](assets/slides/fig_04_seg_result.png)
 
 ```
 urn:uuid:bunny-pc-001          (point-cloud)

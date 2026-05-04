@@ -61,6 +61,12 @@ v2 在 v1 核心之上扩展了：
 
 ## 分割工作流
 
+![多视角分割工作流](docs/assets/slides/fig_02_pipeline.png)
+
+完整的说明图（架构、四种表示对比、分割结果）请参见
+[`docs/slides-v2.md`](docs/slides-v2.md) 与
+[`docs/assets/slides/`](docs/assets/slides/)。
+
 ```
 源资产（point-cloud / mesh / gaussian-splat）
     │  render

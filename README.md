@@ -61,6 +61,8 @@ All kinds share the same envelope; they differ only in the `representations` the
 
 ## Segmentation Workflow
 
+![Multi-view segmentation workflow](docs/assets/slides/fig_02_pipeline.png)
+
 ```
 Source (point-cloud / mesh / gaussian-splat)
     │  render
@@ -76,6 +78,10 @@ segmentation-mask-3d
     ▼
 object-asset
 ```
+
+See [`docs/slides-v2.md`](docs/slides-v2.md) and
+[`docs/assets/slides/`](docs/assets/slides/) for the full set of explanatory
+figures (schema structure, representation comparison, segmentation result).
 
 Each step produces a separate v2 asset. Provenance is preserved through:
 
@@ -95,6 +101,7 @@ mcp-spatial-asset-profile/
 ├── README.zh-CN.md                 ← 简体中文版
 ├── docs/
 │   ├── i18n/                       ← Brief summaries (KO / ES / FR)
+│   ├── assets/slides/              ← Slide figures (architecture, pipeline, etc.)
 │   ├── implementation-plan-v2.md
 │   ├── reference-architecture-v2.md
 │   ├── migration-from-v1.md
@@ -108,6 +115,8 @@ mcp-spatial-asset-profile/
 ├── sdk/
 │   ├── python/                     ← Python SDK (`spatial-asset-v2`)
 │   └── typescript/                 ← TypeScript SDK (`spatial-asset-v2`)
+├── scripts/
+│   └── slides/                     ← Slide figure generation scripts
 ├── samples/                        ← Sample payloads (carried over from v1)
 └── tests/                          ← Schema, roundtrip, interoperability tests
 ```

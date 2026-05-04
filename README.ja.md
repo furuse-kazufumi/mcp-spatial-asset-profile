@@ -61,6 +61,12 @@ v2 は v1 コアに対して以下を追加します。
 
 ## セグメンテーションワークフロー
 
+![マルチビュー・セグメンテーションワークフロー](docs/assets/slides/fig_02_pipeline.png)
+
+スキーマ構造図・表現形式比較・セグメンテーション結果などの解説図は
+[`docs/slides-v2.md`](docs/slides-v2.md) と
+[`docs/assets/slides/`](docs/assets/slides/) を参照してください。
+
 ```
 ソース（point-cloud / mesh / gaussian-splat）
     │  render
