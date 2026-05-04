@@ -1,0 +1,39 @@
+{
+  "version": "2.0",
+  "asset_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440020",
+  "kind": "segmentation-mask-2d",
+  "name": "Bunny front-view segmentation mask",
+  "created_at": "2025-05-01T09:20:00Z",
+  "derived_from": ["urn:uuid:550e8400-e29b-41d4-a716-446655440010"],
+  "representations": [
+    {
+      "rep_id": "rep-mask-png",
+      "format": "png-mask",
+      "uri": "samples/inspection/mask_front.png",
+      "mime_type": "image/png",
+      "image_width": 640,
+      "image_height": 480
+    }
+  ],
+  "workflow": {
+    "step": "segmentation-2d",
+    "target_asset_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440010",
+    "viewpoint_id": "vp-front",
+    "labels": [
+      {"id": 0, "name": "background", "color": [0, 0, 0]},
+      {"id": 1, "name": "bunny",      "color": [255, 128, 0]}
+    ],
+    "confidence": 0.923,
+    "tool": "mock-segmenter",
+    "tool_version": "1.0.0",
+    "parameters": {
+      "threshold": 0.5,
+      "prompt_type": "everything"
+    },
+    "started_at": "2025-05-01T09:20:00Z",
+    "completed_at": "2025-05-01T09:20:01Z"
+  },
+  "metadata": {
+    "annotator": "workflow-mock-runner-v1"
+  }
+}

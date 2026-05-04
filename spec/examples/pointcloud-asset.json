@@ -1,0 +1,60 @@
+{
+  "version": "2.0",
+  "asset_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440001",
+  "kind": "point-cloud",
+  "name": "Stanford Bunny — full resolution",
+  "created_at": "2025-05-01T09:00:00Z",
+  "representations": [
+    {
+      "rep_id": "rep-ply-full",
+      "format": "ply",
+      "uri": "samples/inspection/bunny_full.ply",
+      "mime_type": "application/x-ply",
+      "size_bytes": 8124304,
+      "lod": 0,
+      "point_count": 35947,
+      "channels": ["x", "y", "z", "nx", "ny", "nz"],
+      "encoding": "ascii"
+    },
+    {
+      "rep_id": "rep-ply-binary",
+      "format": "ply",
+      "uri": "samples/inspection/bunny_binary.ply",
+      "mime_type": "application/x-ply",
+      "lod": 0,
+      "point_count": 35947,
+      "channels": ["x", "y", "z", "nx", "ny", "nz"],
+      "encoding": "binary-little-endian"
+    },
+    {
+      "rep_id": "rep-npy-lod1",
+      "format": "npy",
+      "uri": "samples/inspection/bunny_lod1.npy",
+      "mime_type": "application/x-npy",
+      "lod": 1,
+      "point_count": 5000,
+      "channels": ["x", "y", "z"]
+    }
+  ],
+  "spatial": {
+    "frame": "local-ENU",
+    "up_axis": "+Y",
+    "handedness": "right",
+    "unit": "m",
+    "bounds": {
+      "min": [-0.0943, 0.0334, -0.0615],
+      "max": [0.0864, 0.1609, 0.0648]
+    }
+  },
+  "render_hints": {
+    "point_size": 2.0,
+    "opacity": 1.0,
+    "color_mode": "normal",
+    "preferred_representation": "rep-ply-binary"
+  },
+  "metadata": {
+    "source": "Stanford 3D Scanning Repository",
+    "scan_date": "1994",
+    "scanner": "Cyberware 3030 MS"
+  }
+}

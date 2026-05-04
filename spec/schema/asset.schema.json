@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp-spatial/spec/v2/asset.schema.json",
+  "title": "SpatialAssetV2",
+  "description": "MCP Spatial Asset Profile v2 — interoperable 3D/spatial data envelope",
+  "type": "object",
+  "required": ["version", "asset_id", "kind", "representations"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "2.0",
+      "description": "Profile schema version. Must be exactly '2.0'."
+    },
+    "asset_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Globally stable asset identifier (URN or URI)."
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "point-cloud",
+        "mesh",
+        "gaussian-splat",
+        "depth-image",
+        "rendered-view",
+        "segmentation-mask-2d",
+        "segmentation-mask-3d",
+        "object-asset"
+      ],
+      "description": "Primary asset type governing required fields."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable asset label."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 creation timestamp."
+    },
+    "representations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Representation" },
+      "description": "One or more concrete data encodings of this asset."
+    },
+    "spatial": { "$ref": "#/$defs/Spatial" },
+    "viewpoints": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Viewpoint" },
+      "description": "Camera positions associated with this asset."
+    },
+    "render_hints": { "$ref": "#/$defs/RenderHints" },
+    "workflow": { "$ref": "#/$defs/Workflow" },
+    "derived_from": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of parent asset_id values (provenance)."
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Arbitrary domain key-value metadata."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Representation": {
+      "type": "object",
+      "required": ["format", "uri"],
+      "properties": {
+        "rep_id": {
+          "type": "string",
+          "description": "Stable identifier for this representation within the asset."
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "ply", "pcd", "las", "laz",
+            "obj", "gltf", "glb",
+            "splat",
+            "png-depth", "png-mask", "png", "jpeg",
+            "npy", "npz",
+            "json-pc"
+          ],
+          "description": "File format of this representation."
+        },
+        "uri": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Relative path or absolute URI to the data."
+        },
+        "mime_type": {
+          "type": "string",
+          "description": "IANA media type."
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "File size in bytes."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Hex SHA-256 digest for integrity verification."
+        },
+        "lod": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Level-of-detail index; 0 = full resolution."
+        },
+        "point_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of points (point-cloud, gaussian-splat)."
+        },
+        "face_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of faces (mesh)."
+        },
+        "channels": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Named data channels present (e.g. ['x','y','z','rgb'])."
+        },
+        "capabilities_required": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Capability tokens the client must declare."
+        },
+        "encoding": {
+          "type": "string",
+          "description": "Binary encoding hint (e.g. 'binary-little-endian', 'ascii')."
+        },
+        "depth_scale": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Meters per pixel-value unit for depth images (e.g. 0.001 = 1 unit is 1 mm)."
+        },
+        "depth_unit": {
+          "type": "string",
+          "description": "Human-readable depth unit label ('mm', 'm', 'cm')."
+        },
+        "image_width": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Image width in pixels."
+        },
+        "image_height": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Image height in pixels."
+        },
+        "viewpoint_id": {
+          "type": "string",
+          "description": "Reference to a viewpoint in the asset's viewpoints array."
+        },
+        "instance_id": {
+          "type": "string",
+          "description": "Object instance identifier (object-asset)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "Spatial": {
+      "type": "object",
+      "properties": {
+        "frame": {
+          "type": "string",
+          "description": "Coordinate reference frame (e.g. 'local-ENU', 'ECEF', 'camera', 'EPSG:4326')."
+        },
+        "up_axis": {
+          "type": "string",
+          "enum": ["+Y", "+Z", "-Y", "-Z"],
+          "default": "+Y",
+          "description": "Up axis convention."
+        },
+        "handedness": {
+          "type": "string",
+          "enum": ["right", "left"],
+          "default": "right",
+          "description": "Coordinate system handedness."
+        },
+        "unit": {
+          "type": "string",
+          "enum": ["m", "mm", "cm", "ft", "in"],
+          "default": "m",
+          "description": "Unit of spatial coordinates."
+        },
+        "bounds": { "$ref": "#/$defs/BoundingBox" }
+      },
+      "additionalProperties": false
+    },
+    "BoundingBox": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "$ref": "#/$defs/Vec3" },
+        "max": { "$ref": "#/$defs/Vec3" }
+      },
+      "additionalProperties": false
+    },
+    "Vec3": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "Viewpoint": {
+      "type": "object",
+      "required": ["viewpoint_id"],
+      "properties": {
+        "viewpoint_id": { "type": "string" },
+        "label": { "type": "string" },
+        "position": { "$ref": "#/$defs/Vec3" },
+        "target": { "$ref": "#/$defs/Vec3" },
+        "up": { "$ref": "#/$defs/Vec3" },
+        "fov_y_deg": { "type": "number", "exclusiveMinimum": 0, "maximum": 180 },
+        "near": { "type": "number", "exclusiveMinimum": 0 },
+        "far": { "type": "number", "exclusiveMinimum": 0 },
+        "image_width": { "type": "integer", "minimum": 1 },
+        "image_height": { "type": "integer", "minimum": 1 },
+        "intrinsics": {
+          "type": "object",
+          "properties": {
+            "fx": { "type": "number" },
+            "fy": { "type": "number" },
+            "cx": { "type": "number" },
+            "cy": { "type": "number" }
+          },
+          "additionalProperties": true
+        },
+        "extrinsics": {
+          "type": "object",
+          "properties": {
+            "rotation": { "type": "array" },
+            "translation": { "$ref": "#/$defs/Vec3" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "RenderHints": {
+      "type": "object",
+      "properties": {
+        "point_size": { "type": "number", "exclusiveMinimum": 0 },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "color_mode": {
+          "type": "string",
+          "enum": ["rgb", "intensity", "classification", "normal", "height"]
+        },
+        "lod_policy": {
+          "type": "string",
+          "enum": ["none", "screen-space-error", "distance"]
+        },
+        "background_color": { "$ref": "#/$defs/Vec3" },
+        "show_bounding_box": { "type": "boolean" },
+        "preferred_representation": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "WorkflowLabel": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 0 },
+        "name": { "type": "string" },
+        "color": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0, "maximum": 255 },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "additionalProperties": false
+    },
+    "Workflow": {
+      "type": "object",
+      "properties": {
+        "step": { "type": "string" },
+        "target_asset_id": { "type": "string" },
+        "viewpoint_id": { "type": "string" },
+        "instance_id": { "type": "string" },
+        "label": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "tool": { "type": "string" },
+        "tool_version": { "type": "string" },
+        "parameters": { "type": "object", "additionalProperties": true },
+        "source_masks": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "correspondence": { "type": "string" },
+        "labels": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/WorkflowLabel" }
+        },
+        "started_at": { "type": "string", "format": "date-time" },
+        "completed_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

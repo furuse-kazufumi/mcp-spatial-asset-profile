@@ -1,0 +1,23 @@
+{
+  "name": "spatial-asset-v2",
+  "version": "2.0.0",
+  "description": "MCP Spatial Asset Profile v2 — TypeScript SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/tests/",
+    "test:src": "npx ts-node --esm src/tests/index.test.ts",
+    "lint": "echo 'lint not configured'",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["mcp", "spatial", "3d", "point-cloud", "segmentation"],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

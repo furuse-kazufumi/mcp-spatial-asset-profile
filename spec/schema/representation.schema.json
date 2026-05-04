@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp-spatial/spec/v2/representation.schema.json",
+  "title": "Representation",
+  "description": "A single concrete data encoding of a spatial asset.",
+  "type": "object",
+  "required": ["format", "uri"],
+  "properties": {
+    "rep_id": {
+      "type": "string",
+      "description": "Stable identifier for this representation within the asset."
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "ply", "pcd", "las", "laz",
+        "obj", "gltf", "glb",
+        "splat",
+        "png-depth", "png-mask", "png", "jpeg",
+        "npy", "npz",
+        "json-pc"
+      ]
+    },
+    "uri": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mime_type": { "type": "string" },
+    "size_bytes": { "type": "integer", "minimum": 0 },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "lod": { "type": "integer", "minimum": 0 },
+    "point_count": { "type": "integer", "minimum": 0 },
+    "face_count": { "type": "integer", "minimum": 0 },
+    "channels": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "capabilities_required": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "encoding": { "type": "string" },
+    "depth_scale": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "depth_unit": { "type": "string" },
+    "image_width": { "type": "integer", "minimum": 1 },
+    "image_height": { "type": "integer", "minimum": 1 },
+    "viewpoint_id": { "type": "string" },
+    "instance_id": { "type": "string" }
+  },
+  "additionalProperties": false
+}

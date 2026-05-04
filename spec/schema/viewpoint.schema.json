@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp-spatial/spec/v2/viewpoint.schema.json",
+  "title": "Viewpoint",
+  "description": "Camera position and orientation descriptor.",
+  "type": "object",
+  "required": ["viewpoint_id"],
+  "properties": {
+    "viewpoint_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identifier referenced by representation viewpoint_id."
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable label."
+    },
+    "position": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "Camera origin in asset coordinate frame [x, y, z]."
+    },
+    "target": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "Look-at point [x, y, z]."
+    },
+    "up": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "Up vector [x, y, z]."
+    },
+    "fov_y_deg": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 180,
+      "description": "Vertical field of view in degrees."
+    },
+    "near": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Near clipping plane distance."
+    },
+    "far": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Far clipping plane distance."
+    },
+    "image_width": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Render width in pixels."
+    },
+    "image_height": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Render height in pixels."
+    },
+    "intrinsics": {
+      "type": "object",
+      "description": "Pinhole camera intrinsics.",
+      "properties": {
+        "fx": { "type": "number", "description": "Focal length X (pixels)." },
+        "fy": { "type": "number", "description": "Focal length Y (pixels)." },
+        "cx": { "type": "number", "description": "Principal point X (pixels)." },
+        "cy": { "type": "number", "description": "Principal point Y (pixels)." },
+        "k1": { "type": "number", "description": "Radial distortion k1." },
+        "k2": { "type": "number", "description": "Radial distortion k2." },
+        "p1": { "type": "number", "description": "Tangential distortion p1." },
+        "p2": { "type": "number", "description": "Tangential distortion p2." }
+      },
+      "additionalProperties": true
+    },
+    "extrinsics": {
+      "type": "object",
+      "description": "World-to-camera transform.",
+      "properties": {
+        "rotation": {
+          "type": "array",
+          "description": "3x3 rotation matrix (row-major).",
+          "items": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "translation": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "Translation vector [tx, ty, tz]."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

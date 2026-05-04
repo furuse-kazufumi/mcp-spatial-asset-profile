@@ -1,0 +1,54 @@
+{
+  "version": "2.0",
+  "asset_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440040",
+  "kind": "object-asset",
+  "name": "Extracted bunny object instance",
+  "created_at": "2025-05-01T09:30:00Z",
+  "derived_from": [
+    "urn:uuid:550e8400-e29b-41d4-a716-446655440001",
+    "urn:uuid:550e8400-e29b-41d4-a716-446655440030"
+  ],
+  "representations": [
+    {
+      "rep_id": "rep-ply-object",
+      "format": "ply",
+      "uri": "samples/inspection/bunny_object.ply",
+      "mime_type": "application/x-ply",
+      "point_count": 31204,
+      "channels": ["x", "y", "z", "nx", "ny", "nz"]
+    }
+  ],
+  "spatial": {
+    "frame": "local-ENU",
+    "up_axis": "+Y",
+    "handedness": "right",
+    "unit": "m",
+    "bounds": {
+      "min": [-0.0943, 0.0334, -0.0615],
+      "max": [0.0864, 0.1609, 0.0648]
+    }
+  },
+  "workflow": {
+    "step": "extract-object",
+    "target_asset_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440001",
+    "instance_id": "obj-bunny-001",
+    "label": "bunny",
+    "confidence": 0.912,
+    "tool": "label-extractor",
+    "tool_version": "1.0.0",
+    "parameters": {
+      "label_id": 1,
+      "min_points": 100
+    },
+    "started_at": "2025-05-01T09:30:00Z",
+    "completed_at": "2025-05-01T09:30:01Z"
+  },
+  "render_hints": {
+    "point_size": 2.0,
+    "color_mode": "normal"
+  },
+  "metadata": {
+    "category": "animal-sculpture",
+    "dataset": "stanford-bunny-segmentation-v1"
+  }
+}

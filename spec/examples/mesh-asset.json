@@ -1,0 +1,48 @@
+{
+  "version": "2.0",
+  "asset_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440002",
+  "kind": "mesh",
+  "name": "Icosphere — subdivision level 2",
+  "created_at": "2025-05-01T09:05:00Z",
+  "representations": [
+    {
+      "rep_id": "rep-obj-default",
+      "format": "obj",
+      "uri": "samples/inspection/icosphere.obj",
+      "mime_type": "model/obj",
+      "lod": 0,
+      "face_count": 320,
+      "channels": ["position", "normal", "uv"]
+    },
+    {
+      "rep_id": "rep-gltf-binary",
+      "format": "glb",
+      "uri": "samples/inspection/icosphere.glb",
+      "mime_type": "model/gltf-binary",
+      "lod": 0,
+      "face_count": 320,
+      "capabilities_required": ["mesh-render"]
+    }
+  ],
+  "spatial": {
+    "frame": "local-ENU",
+    "up_axis": "+Y",
+    "handedness": "right",
+    "unit": "m",
+    "bounds": {
+      "min": [-1.0, -1.0, -1.0],
+      "max": [1.0, 1.0, 1.0]
+    }
+  },
+  "render_hints": {
+    "opacity": 1.0,
+    "color_mode": "rgb",
+    "show_bounding_box": false,
+    "preferred_representation": "rep-obj-default"
+  },
+  "metadata": {
+    "generator": "Blender 3.6",
+    "subdivision_level": 2,
+    "vertex_count": 162
+  }
+}

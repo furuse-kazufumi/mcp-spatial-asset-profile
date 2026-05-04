@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp-spatial/spec/v2/object-asset.schema.json",
+  "title": "ObjectAsset",
+  "description": "Overlay schema for kind=object-asset: a segmented object instance extracted from a source spatial asset.",
+  "type": "object",
+  "required": ["version", "asset_id", "kind", "representations", "workflow"],
+  "properties": {
+    "version": { "type": "string", "const": "2.0" },
+    "asset_id": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "const": "object-asset" },
+    "name": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "representations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["format", "uri"],
+        "properties": {
+          "rep_id": { "type": "string" },
+          "format": {
+            "type": "string",
+            "enum": ["ply", "pcd", "obj", "gltf", "glb", "npy", "npz", "json-pc"]
+          },
+          "uri": { "type": "string" },
+          "mime_type": { "type": "string" },
+          "size_bytes": { "type": "integer", "minimum": 0 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "point_count": { "type": "integer", "minimum": 0 },
+          "face_count": { "type": "integer", "minimum": 0 },
+          "channels": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": true
+      }
+    },
+    "spatial": {
+      "type": "object",
+      "properties": {
+        "frame": { "type": "string" },
+        "up_axis": { "type": "string" },
+        "handedness": { "type": "string" },
+        "unit": { "type": "string" },
+        "bounds": {
+          "type": "object",
+          "required": ["min", "max"],
+          "properties": {
+            "min": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+            "max": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }
+          }
+        }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "required": ["target_asset_id", "instance_id"],
+      "properties": {
+        "step": { "type": "string" },
+        "target_asset_id": { "type": "string", "minLength": 1 },
+        "instance_id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "tool": { "type": "string" },
+        "tool_version": { "type": "string" },
+        "parameters": { "type": "object" },
+        "started_at": { "type": "string", "format": "date-time" },
+        "completed_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "derived_from": { "type": "array", "items": { "type": "string" } },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": false
+}

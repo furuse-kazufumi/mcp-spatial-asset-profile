@@ -1,0 +1,62 @@
+{
+  "version": "2.0",
+  "asset_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440003",
+  "kind": "gaussian-splat",
+  "name": "Gaussian Splat Sample — 1000 Gaussians",
+  "created_at": "2025-05-01T09:10:00Z",
+  "representations": [
+    {
+      "rep_id": "rep-splat-full",
+      "format": "splat",
+      "uri": "samples/gaussian-splat/scene.splat",
+      "mime_type": "application/x-gaussian-splat",
+      "size_bytes": 62000,
+      "lod": 0,
+      "point_count": 1000,
+      "channels": [
+        "x", "y", "z",
+        "opacity",
+        "scale_0", "scale_1", "scale_2",
+        "rot_0", "rot_1", "rot_2", "rot_3",
+        "f_dc_0", "f_dc_1", "f_dc_2"
+      ],
+      "capabilities_required": ["splat-render"],
+      "encoding": "binary-little-endian"
+    },
+    {
+      "rep_id": "rep-ply-gaussians",
+      "format": "ply",
+      "uri": "samples/gaussian-splat/scene_gaussians.ply",
+      "mime_type": "application/x-ply",
+      "size_bytes": 68360,
+      "lod": 0,
+      "point_count": 1000,
+      "channels": [
+        "x", "y", "z",
+        "opacity",
+        "scale_0", "scale_1", "scale_2",
+        "rot_0", "rot_1", "rot_2", "rot_3",
+        "f_dc_0", "f_dc_1", "f_dc_2"
+      ]
+    }
+  ],
+  "spatial": {
+    "frame": "local-ENU",
+    "up_axis": "+Y",
+    "handedness": "right",
+    "unit": "m",
+    "bounds": {
+      "min": [-2.0, -1.5, -2.0],
+      "max": [2.0, 1.5, 2.0]
+    }
+  },
+  "render_hints": {
+    "opacity": 1.0,
+    "preferred_representation": "rep-splat-full"
+  },
+  "metadata": {
+    "training_iterations": 30000,
+    "training_framework": "3dgs-inria",
+    "scene": "synthetic-sample"
+  }
+}
