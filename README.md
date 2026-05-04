@@ -195,8 +195,9 @@ npm test
 ```
 
 See [`docs/package-publication.md`](docs/package-publication.md) for the full
-publication workflow (PyPI Trusted Publishing, npm provenance, and the manual
-`Publish packages` GitHub Actions workflow).
+publication workflow (PyPI **and** npm Trusted Publishing via GitHub OIDC,
+provenance attestations, and the manual `Publish packages` GitHub Actions
+workflow — no long-lived `NPM_TOKEN` secret is required).
 
 ---
 

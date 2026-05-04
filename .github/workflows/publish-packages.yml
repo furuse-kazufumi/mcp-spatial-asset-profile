@@ -6,7 +6,10 @@ name: Publish packages
 #  - PyPI: configure Trusted Publishing for this repo with workflow
 #    `publish-packages.yml` and environment `pypi` (or `testpypi` for tests).
 #    See docs/package-publication.md.
-#  - npm: add an Automation token as the `NPM_TOKEN` repository secret.
+#  - npm: configure Trusted Publishing (OIDC) on the npm package settings
+#    pointing at this repo and workflow filename `publish-packages.yml`.
+#    No `NPM_TOKEN` secret is required when Trusted Publishing is enabled.
+#    See docs/package-publication.md for the legacy NPM_TOKEN fallback.
 
 on:
   workflow_dispatch:
@@ -107,13 +110,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js 20
+      - name: Set up Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          # npm Trusted Publishing requires Node 22.14.0+ and npm 11.5.1+.
+          node-version: "22"
           registry-url: "https://registry.npmjs.org"
           cache: npm
           cache-dependency-path: sdk/typescript/package-lock.json
+
+      - name: Upgrade npm to a Trusted-Publishing-capable version
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         working-directory: sdk/typescript
@@ -131,9 +138,11 @@ jobs:
         working-directory: sdk/typescript
         run: npm pack --dry-run
 
-      - name: Publish to npm
+      - name: Publish to npm (Trusted Publishing / OIDC)
         if: ${{ inputs.dry_run == false }}
         working-directory: sdk/typescript
+        # No NODE_AUTH_TOKEN is needed: npm 11.5.1+ exchanges the GitHub
+        # Actions OIDC token for a short-lived publish credential when the
+        # package has Trusted Publishing configured. Provenance is emitted
+        # automatically; --provenance is kept for clarity and forward-compat.
         run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
