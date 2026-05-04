@@ -52,7 +52,7 @@ npm supports **Trusted Publishing** for GitHub Actions: the workflow exchanges i
 
 Requirements (already satisfied by `.github/workflows/publish-packages.yml`):
 
-- GitHub-hosted runner with **Node.js 22.14.0+** and **npm 11.5.1+** — the workflow installs Node 22 via `actions/setup-node` and runs `npm install -g npm@latest` to guarantee a Trusted-Publishing-capable npm.
+- GitHub-hosted runner with **Node.js 22.14.0+** and **npm 11.5.1+** — the workflow installs Node 24 via `actions/setup-node`, which ships with a Trusted-Publishing-capable npm out of the box (no global `npm install -g npm@latest` required), and verifies the resolved npm version before publishing.
 - Workflow permissions `id-token: write` and `contents: read`.
 - Publish command `npm publish --access public --provenance`.
 

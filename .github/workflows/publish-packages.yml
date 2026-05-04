@@ -110,17 +110,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js 22
+      - name: Set up Node.js 24
         uses: actions/setup-node@v4
         with:
           # npm Trusted Publishing requires Node 22.14.0+ and npm 11.5.1+.
-          node-version: "22"
+          # Node 24 ships with npm >=11.5.1 by default, so no global upgrade
+          # is needed (avoids the `npm install -g npm@latest` failure mode
+          # where the running npm cannot resolve its own dependencies after
+          # being overwritten mid-install).
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
           cache: npm
           cache-dependency-path: sdk/typescript/package-lock.json
 
-      - name: Upgrade npm to a Trusted-Publishing-capable version
-        run: npm install -g npm@latest
+      - name: Verify Node and npm versions
+        run: |
+          node --version
+          npm --version
+          npm_version=$(npm --version)
+          required="11.5.1"
+          # Sort versions; the smaller one should be $required if npm satisfies the floor.
+          lowest=$(printf '%s\n%s\n' "$npm_version" "$required" | sort -V | head -n1)
+          if [ "$lowest" != "$required" ] && [ "$npm_version" != "$required" ]; then
+            echo "::error::npm $npm_version is older than required $required for Trusted Publishing"
+            exit 1
+          fi
 
       - name: Install dependencies
         working-directory: sdk/typescript
