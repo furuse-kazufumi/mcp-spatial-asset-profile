@@ -199,13 +199,20 @@ PoC 後の短期優先項目です。
 
 ## コントリビューション
 
-本プロジェクトはオープンな Proof of Concept です。Issue / Pull Request を歓迎します。特に次の領域でフィードバックが有用です。
+本プロジェクトはオープンな Proof of Concept であり、貢献を歓迎します。特に次の領域でのフィードバックが有用です。
 
 - エンベロープのギャップを露わにする実利用統合。
 - スキーマの修正、新規アセット種別、ケイパビリティ語彙の提案。
 - 翻訳およびドキュメント改善（README 上部の言語ナビゲーション参照）。
 
-大規模な変更については、まず方向性を Issue で議論いただけると助かります。
+最初に以下をご覧ください。
+
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** — 変更の提案方法、テスト実行、仕様 / スキーマ / サンプル / SDK の同期について。
+- **[行動規範（Code of Conduct）](CODE_OF_CONDUCT.md)** — コミュニティ基準。
+- **[GitHub Discussions](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/discussions)** — 質問、アイデア、初期段階の仕様提案、実装報告、i18n の相談。日本語の投稿も歓迎します。
+- **[docs/community.md](docs/community.md)** — どの会話をどこで行うか、および仕様提案の進め方。
+
+仕様（`spec/`）に関わる大きな変更は、まず Discussion または `[spec]` Issue で方向性を合意してから PR を出していただけると助かります。
 
 ---
 

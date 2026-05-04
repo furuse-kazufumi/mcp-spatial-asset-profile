@@ -199,13 +199,20 @@ PoC 之后的近期优先事项：
 
 ## 贡献
 
-本项目是开放的概念验证。欢迎 Issue 与 Pull Request，特别是以下方向：
+本项目是开放的概念验证，欢迎贡献。以下方向的反馈尤其有价值：
 
 - 暴露信封缺口的真实集成。
 - Schema 修正、新增资产类型、能力词表提案。
 - 翻译与文档改进（请参见 README 顶部的语言导航）。
 
-对于较大改动，请先开 Issue 讨论方向。
+请先阅读：
+
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** —— 如何提出变更、运行测试，以及保持规范 / Schema / 示例 / SDK 一致。
+- **[行为准则（Code of Conduct）](CODE_OF_CONDUCT.md)** —— 社区准则。
+- **[GitHub Discussions](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/discussions)** —— 提问、想法、早期规范提案、实现报告、i18n 协助。欢迎使用中文发表。
+- **[docs/community.md](docs/community.md)** —— 各类讨论的归属与规范提案的推进路径。
+
+涉及规范（`spec/`）的较大变更，请先在 Discussion 或 `[spec]` Issue 中商定方向，再提交 PR。
 
 ---
 

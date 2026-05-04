@@ -1,0 +1,94 @@
+name: Spec discussion
+description: Propose or discuss a normative change to the MCP Spatial Asset Profile v2 specification.
+title: "[spec] "
+labels: ["spec", "discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for proposals that change the **specification** itself — for example new fields in the envelope, new asset kinds, changes to the segmentation workflow, or capability vocabulary.
+
+        For open-ended ideas or questions, please consider [GitHub Discussions](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/discussions) first.
+
+        Discussions can be in English, 日本語, or 简体中文.
+  - type: dropdown
+    id: section
+    attributes:
+      label: Affected section
+      options:
+        - "Core spec: spec/spatial-asset-profile-v2.md"
+        - "Segmentation workflow: spec/segmentation-workflow-v2.md"
+        - "JSON Schema: spec/schema/"
+        - "Capability vocabulary"
+        - "Asset kinds"
+        - "Migration / v1 compatibility"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: What use case or gap drives this proposal? Concrete integration scenarios are very helpful.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Suggested wording, field shapes, or schema fragments. Bullet points are fine.
+    validations:
+      required: true
+  - type: dropdown
+    id: additive
+    attributes:
+      label: Additive to v2?
+      description: v2 is a strict superset of v1, and we strongly prefer additive changes. Non-additive proposals require a stronger justification and a migration note.
+      options:
+        - "Yes, purely additive"
+        - "No, modifies existing fields or behavior"
+        - "Not sure / would like guidance"
+    validations:
+      required: true
+  - type: textarea
+    id: traceability
+    attributes:
+      label: Traceability and multi-view segmentation
+      description: How does the proposal interact with `derived_from`, `workflow.target_asset_id`, and the multi-view segmentation workflow?
+    validations:
+      required: false
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact on schema / examples / SDKs
+      description: List the files you expect to touch, and whether both the Python and TypeScript SDKs need updates.
+      placeholder: |
+        - spec/spatial-asset-profile-v2.md (spec text)
+        - spec/schema/asset.schema.json
+        - spec/examples/...
+        - sdk/python/...
+        - sdk/typescript/...
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other shapes the proposal could take, and why they are weaker.
+    validations:
+      required: false
+  - type: textarea
+    id: prior_art
+    attributes:
+      label: Prior art / references
+      description: Other spatial / 3D / scene profiles, papers, or implementations that inform this proposal.
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](../blob/main/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true

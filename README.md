@@ -199,13 +199,20 @@ See also [`docs/implementation-plan-v2.md`](docs/implementation-plan-v2.md) and 
 
 ## Contributing
 
-This is an open Proof of Concept. Issues and pull requests are welcome — particularly:
+This is an open Proof of Concept and contributions are very welcome. Particularly useful:
 
 - Real-world integrations that surface gaps in the envelope.
 - Schema corrections, additional asset kinds, or capability vocabulary proposals.
 - Translations and documentation improvements (see the language navigation at the top).
 
-For larger changes, please open an issue first to discuss the direction.
+Please start here:
+
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** — how to propose changes, run tests, and keep spec / schema / examples / SDKs in sync.
+- **[Code of Conduct](CODE_OF_CONDUCT.md)** — community standards.
+- **[GitHub Discussions](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/discussions)** — questions, ideas, early-stage spec proposals, implementation reports, i18n help. English / 日本語 / 简体中文 all welcome.
+- **[docs/community.md](docs/community.md)** — where each kind of conversation belongs and how spec proposals progress.
+
+For larger spec changes, please open a Discussion or `[spec]` issue first to align on direction before sending a PR.
 
 ---
 

@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions, ideas, and early-stage proposals
+    url: https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/discussions
+    about: Use GitHub Discussions for open-ended questions, brainstorming, Q&A, implementation reports, and i18n help. English, 日本語, 简体中文 are all welcome.
+  - name: Specification (v2.0)
+    url: https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/blob/main/spec/spatial-asset-profile-v2.md
+    about: Read the MCP Spatial Asset Profile v2 specification before opening a spec discussion.
+  - name: Segmentation workflow extension
+    url: https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/blob/main/spec/segmentation-workflow-v2.md
+    about: The multi-view segmentation workflow that v2 introduces.
+  - name: Contributing guide
+    url: https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/blob/main/CONTRIBUTING.md
+    about: How to propose changes, run tests, and keep spec / schema / examples / SDKs consistent.

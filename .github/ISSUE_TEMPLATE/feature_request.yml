@@ -1,0 +1,82 @@
+name: Feature request
+description: Propose a new feature, asset kind, capability, or SDK enhancement.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement to **MCP Spatial Asset Profile v2**.
+
+        For changes that touch the **specification** (`spec/spatial-asset-profile-v2.md` or `spec/segmentation-workflow-v2.md`), please use the **Spec discussion** template instead, since spec changes need a dedicated thread.
+
+        Requests are welcome in English, 日本語, or 简体中文.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Target area
+      options:
+        - JSON Schema (spec/schema/)
+        - Python SDK (sdk/python/)
+        - TypeScript SDK (sdk/typescript/)
+        - Canonical examples (spec/examples/)
+        - Tests / interoperability
+        - Documentation (README, docs/)
+        - Tooling / CI
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: What problem are you trying to solve? Real-world integration scenarios are particularly welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe what you'd like to see. Concrete API / field shapes are helpful but optional at this stage.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you considered, and why this one seems best.
+    validations:
+      required: false
+  - type: dropdown
+    id: additive
+    attributes:
+      label: Is this additive to v2?
+      description: v2 is intentionally a strict superset of v1. Non-additive changes need a stronger justification.
+      options:
+        - "Yes, purely additive (new field / new asset kind / new capability)"
+        - "No, this changes existing behavior (please explain in the proposal)"
+        - "Not sure"
+    validations:
+      required: true
+  - type: textarea
+    id: traceability
+    attributes:
+      label: Traceability impact
+      description: Does this affect `derived_from`, `workflow.target_asset_id`, or the multi-view segmentation workflow? If yes, how is lineage preserved?
+    validations:
+      required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Links to prior art (other 3D / spatial profiles), real assets, related issues.
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](../blob/main/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true
