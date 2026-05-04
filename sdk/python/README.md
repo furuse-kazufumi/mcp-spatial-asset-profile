@@ -1,11 +1,30 @@
-# spatial-asset-v2 — Python SDK
+# mcp-spatial-asset-profile — Python SDK
 
-Python SDK for the **MCP Spatial Asset Profile v2**.
+Reference Python SDK for the **[MCP Spatial Asset Profile v2](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile)** — a JSON envelope format for 3D / spatial assets in Model Context Protocol (MCP) tool ecosystems.
+
+- **Distribution name (PyPI):** [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)
+- **Import package:** `spatial_asset_v2`
+- **TypeScript counterpart:** [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile)
+- **Spec & repository:** <https://github.com/furuse-kazufumi/mcp-spatial-asset-profile>
+- **Release tag:** [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
+
+> **Status — Proof of Concept.** The format is usable for prototyping and interoperability experiments. The wire format is not yet frozen; feedback via [GitHub Discussions](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/discussions) is explicitly welcome before v2.1.
 
 ## Installation
 
+Once published to PyPI:
+
 ```bash
-pip install -e ".[validate]"
+pip install mcp-spatial-asset-profile
+# Optional: enable JSON Schema validation
+pip install "mcp-spatial-asset-profile[validate]"
+```
+
+From source (this repository):
+
+```bash
+cd sdk/python
+pip install -e ".[dev]"
 ```
 
 ## Quick Start
@@ -80,3 +99,7 @@ cd sdk/python
 pip install -e ".[dev]"
 pytest tests/ -v
 ```
+
+## License
+
+MIT — see the [LICENSE](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/blob/main/LICENSE) file at the repository root.

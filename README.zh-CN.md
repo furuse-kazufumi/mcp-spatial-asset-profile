@@ -25,6 +25,13 @@
 | TypeScript SDK | 参考实现，已测试 |
 | 示例资产与跨 SDK 互操作 | 由 `tests/` 覆盖 |
 
+**包与发布**
+
+- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) *(发布就绪，首次发布待执行)*
+- npm: [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile) *(发布就绪，首次发布待执行)*
+- GitHub 发布: [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
+- 发布指南: [`docs/package-publication.md`](docs/package-publication.md)
+
 ---
 
 ## 这个 Profile 是什么？
@@ -133,6 +140,17 @@ Schema 可与任何 JSON Schema 2020-12 验证器（如 `ajv`、`jsonschema`）�
 
 ### Python SDK
 
+PyPI 包名为 **[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)**（导入名仍为 `spatial_asset_v2`）。
+
+```bash
+# PyPI 发布后:
+pip install mcp-spatial-asset-profile
+# 启用 JSON Schema 验证:
+pip install "mcp-spatial-asset-profile[validate]"
+```
+
+从仓库源码使用:
+
 ```bash
 cd sdk/python
 pip install -e ".[dev]"
@@ -154,12 +172,23 @@ pytest tests/ -v
 
 ### TypeScript SDK
 
+npm 包名为 **[`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile)**。
+
+```bash
+# npm 发布后:
+npm install @furuse-kazufumi/mcp-spatial-asset-profile
+```
+
+从仓库源码使用:
+
 ```bash
 cd sdk/typescript
 npm install
 npm run build
 npm test
 ```
+
+完整发布流程参见 [`docs/package-publication.md`](docs/package-publication.md)。
 
 ---
 

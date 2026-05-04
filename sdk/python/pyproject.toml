@@ -3,21 +3,40 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "spatial-asset-v2"
-version = "2.0.0"
-description = "MCP Spatial Asset Profile v2 — Python SDK"
+name = "mcp-spatial-asset-profile"
+version = "0.1.0"
+description = "Reference Python SDK for the MCP Spatial Asset Profile v2 — JSON envelope for 3D / spatial assets in Model Context Protocol tool ecosystems."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
-keywords = ["mcp", "spatial", "3d", "point-cloud", "segmentation"]
+authors = [
+    { name = "MCP Spatial Asset Profile Working Group" },
+]
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "spatial",
+    "3d",
+    "point-cloud",
+    "mesh",
+    "gaussian-splat",
+    "segmentation",
+    "spatial-asset-profile",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: File Formats :: JSON :: JSON Schema",
 ]
 
 dependencies = [
@@ -29,10 +48,21 @@ validate = ["jsonschema>=4.0"]
 dev = [
     "pytest>=7",
     "jsonschema>=4.0",
+    "build>=1.0",
 ]
 
 [project.scripts]
 spatial-asset-v2 = "spatial_asset_v2.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/furuse-kazufumi/mcp-spatial-asset-profile"
+Repository = "https://github.com/furuse-kazufumi/mcp-spatial-asset-profile"
+Documentation = "https://github.com/furuse-kazufumi/mcp-spatial-asset-profile#readme"
+Specification = "https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/blob/main/spec/spatial-asset-profile-v2.md"
+Issues = "https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/issues"
+Discussions = "https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/discussions"
+Release = "https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc"
+"npm package" = "https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -1,0 +1,139 @@
+name: Publish packages
+
+# Manual publish workflow for PyPI and npm.
+#
+# Prerequisites (one-time):
+#  - PyPI: configure Trusted Publishing for this repo with workflow
+#    `publish-packages.yml` and environment `pypi` (or `testpypi` for tests).
+#    See docs/package-publication.md.
+#  - npm: add an Automation token as the `NPM_TOKEN` repository secret.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Which package(s) to publish"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - both
+          - pypi
+          - npm
+          - testpypi
+      dry_run:
+        description: "If true, build and pack but do not upload."
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  publish-pypi:
+    name: Publish to PyPI (Trusted Publishing)
+    if: ${{ inputs.target == 'pypi' || inputs.target == 'both' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/mcp-spatial-asset-profile/
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build sdist and wheel
+        working-directory: sdk/python
+        run: |
+          python -m pip install --upgrade pip build twine
+          python -m build
+          python -m twine check dist/*
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-dist
+          path: sdk/python/dist/*
+
+      - name: Publish to PyPI
+        if: ${{ inputs.dry_run == false }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: sdk/python/dist
+
+  publish-testpypi:
+    name: Publish to TestPyPI
+    if: ${{ inputs.target == 'testpypi' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/mcp-spatial-asset-profile/
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build sdist and wheel
+        working-directory: sdk/python
+        run: |
+          python -m pip install --upgrade pip build twine
+          python -m build
+          python -m twine check dist/*
+
+      - name: Publish to TestPyPI
+        if: ${{ inputs.dry_run == false }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: sdk/python/dist
+          repository-url: https://test.pypi.org/legacy/
+
+  publish-npm:
+    name: Publish to npm (with provenance)
+    if: ${{ inputs.target == 'npm' || inputs.target == 'both' }}
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+          cache-dependency-path: sdk/typescript/package-lock.json
+
+      - name: Install dependencies
+        working-directory: sdk/typescript
+        run: npm ci
+
+      - name: Build
+        working-directory: sdk/typescript
+        run: npm run build
+
+      - name: Test
+        working-directory: sdk/typescript
+        run: npm test
+
+      - name: Pack (dry-run)
+        working-directory: sdk/typescript
+        run: npm pack --dry-run
+
+      - name: Publish to npm
+        if: ${{ inputs.dry_run == false }}
+        working-directory: sdk/typescript
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

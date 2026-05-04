@@ -25,6 +25,13 @@ It builds on **[mcp-3d v1](https://github.com/puruyan2525/mcp-3d)** (Claude Code
 | TypeScript SDK | Reference implementation, tested |
 | Sample assets & cross-SDK interoperability | Covered by `tests/` |
 
+**Packages & releases**
+
+- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) *(publication-ready; first release pending)*
+- npm: [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile) *(publication-ready; first release pending)*
+- GitHub release: [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
+- Publication guide: [`docs/package-publication.md`](docs/package-publication.md)
+
 ---
 
 ## What is this profile?
@@ -136,6 +143,19 @@ The schemas are usable standalone with any JSON Schema 2020-12 validator (e.g. `
 
 ### Python SDK
 
+The Python SDK is published (or scheduled to be published) on PyPI as
+**[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)**;
+the import package remains `spatial_asset_v2`.
+
+```bash
+# Once published to PyPI:
+pip install mcp-spatial-asset-profile
+# Optional JSON Schema validation:
+pip install "mcp-spatial-asset-profile[validate]"
+```
+
+From source (this repository):
+
 ```bash
 cd sdk/python
 pip install -e ".[dev]"
@@ -157,12 +177,26 @@ pytest tests/ -v
 
 ### TypeScript SDK
 
+The TypeScript SDK is published (or scheduled to be published) on npm as
+**[`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile)**.
+
+```bash
+# Once published to npm:
+npm install @furuse-kazufumi/mcp-spatial-asset-profile
+```
+
+From source (this repository):
+
 ```bash
 cd sdk/typescript
 npm install
 npm run build
 npm test
 ```
+
+See [`docs/package-publication.md`](docs/package-publication.md) for the full
+publication workflow (PyPI Trusted Publishing, npm provenance, and the manual
+`Publish packages` GitHub Actions workflow).
 
 ---
 

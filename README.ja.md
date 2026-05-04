@@ -25,6 +25,13 @@
 | TypeScript SDK | リファレンス実装、テスト済 |
 | サンプル資産・SDK 間相互運用 | `tests/` でカバー |
 
+**パッケージとリリース**
+
+- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) *(公開準備済み・初回リリース予定)*
+- npm: [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile) *(公開準備済み・初回リリース予定)*
+- GitHub リリース: [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
+- 公開手順: [`docs/package-publication.md`](docs/package-publication.md)
+
 ---
 
 ## このプロファイルとは
@@ -133,6 +140,17 @@ mcp-spatial-asset-profile/
 
 ### Python SDK
 
+PyPI 配布名は **[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)** です（インポートは従来どおり `spatial_asset_v2`）。
+
+```bash
+# PyPI 公開後:
+pip install mcp-spatial-asset-profile
+# JSON Schema 検証を有効化:
+pip install "mcp-spatial-asset-profile[validate]"
+```
+
+リポジトリのソースから利用する場合:
+
 ```bash
 cd sdk/python
 pip install -e ".[dev]"
@@ -154,12 +172,23 @@ pytest tests/ -v
 
 ### TypeScript SDK
 
+npm 配布名は **[`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile)** です。
+
+```bash
+# npm 公開後:
+npm install @furuse-kazufumi/mcp-spatial-asset-profile
+```
+
+リポジトリのソースから利用する場合:
+
 ```bash
 cd sdk/typescript
 npm install
 npm run build
 npm test
 ```
+
+公開手順の詳細は [`docs/package-publication.md`](docs/package-publication.md) を参照してください。
 
 ---
 
