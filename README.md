@@ -27,7 +27,7 @@ It builds on **[mcp-3d v1](https://github.com/puruyan2525/mcp-3d)** (Claude Code
 
 **Packages & releases**
 
-- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) *(publication-ready; first release pending)*
+- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) — **published (v0.1.0)**: `pip install mcp-spatial-asset-profile`
 - npm: [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile) *(publication-ready; first release pending)*
 - GitHub release: [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
 - Publication guide: [`docs/package-publication.md`](docs/package-publication.md)
@@ -143,12 +143,11 @@ The schemas are usable standalone with any JSON Schema 2020-12 validator (e.g. `
 
 ### Python SDK
 
-The Python SDK is published (or scheduled to be published) on PyPI as
-**[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)**;
-the import package remains `spatial_asset_v2`.
+The Python SDK is published on PyPI as
+**[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)**
+(initial release: **v0.1.0**); the import package remains `spatial_asset_v2`.
 
 ```bash
-# Once published to PyPI:
 pip install mcp-spatial-asset-profile
 # Optional JSON Schema validation:
 pip install "mcp-spatial-asset-profile[validate]"

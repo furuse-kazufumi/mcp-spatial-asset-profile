@@ -2,16 +2,19 @@
 
 This document describes how the **MCP Spatial Asset Profile v2** reference SDKs are published to PyPI and npm, and how to perform a release.
 
-> Status: **publication-ready** — metadata, build, and a manual GitHub Actions workflow are in place. The first publish to each registry still has to be performed by a human with the appropriate credentials configured.
+> Status:
+>
+> - **PyPI — published.** Initial release `mcp-spatial-asset-profile` **0.1.0** is live at <https://pypi.org/project/mcp-spatial-asset-profile/0.1.0/>. Subsequent releases follow the workflow below.
+> - **npm — pending.** Metadata, build, and the manual GitHub Actions workflow are in place; the first publish still has to be performed by a human once npm Trusted Publisher setup is complete.
 
 ---
 
 ## Package names
 
-| Ecosystem | Package name | Install command | Registry URL (after first publish) |
-|---|---|---|---|
-| PyPI | `mcp-spatial-asset-profile` | `pip install mcp-spatial-asset-profile` | <https://pypi.org/project/mcp-spatial-asset-profile/> |
-| npm  | `@furuse-kazufumi/mcp-spatial-asset-profile` | `npm install @furuse-kazufumi/mcp-spatial-asset-profile` | <https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile> |
+| Ecosystem | Package name | Install command | Registry URL | Status |
+|---|---|---|---|---|
+| PyPI | `mcp-spatial-asset-profile` | `pip install mcp-spatial-asset-profile` | <https://pypi.org/project/mcp-spatial-asset-profile/> | **Published — v0.1.0** |
+| npm  | `@furuse-kazufumi/mcp-spatial-asset-profile` | `npm install @furuse-kazufumi/mcp-spatial-asset-profile` | <https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile> | Pending — first publish not yet performed |
 
 The Python distribution name (`mcp-spatial-asset-profile`) differs from the import package name (`spatial_asset_v2`). This is intentional and matches PEP 8 / PEP 423 guidance: the distribution describes the project, while the import name remains a stable identifier inside user code.
 
@@ -33,6 +36,8 @@ The npm scoped name uses the GitHub owner (`@furuse-kazufumi`) so that the packa
 ## First-time setup
 
 ### PyPI — Trusted Publishing (recommended)
+
+> The steps below were completed for the initial **v0.1.0** release. They are kept here for reference and for any future re-configuration (e.g. new environment, transferred ownership).
 
 Trusted Publishing uses GitHub OIDC, so no long-lived API token is stored in repository secrets.
 
@@ -151,10 +156,10 @@ After the first publish, GitHub will display the packages on the repository side
 
 ## 日本語まとめ
 
-- **PyPI 配布名:** `mcp-spatial-asset-profile`（インポートは `spatial_asset_v2` のまま）
-- **npm 配布名:** `@furuse-kazufumi/mcp-spatial-asset-profile`
+- **PyPI 配布名:** `mcp-spatial-asset-profile` — **公開済み (v0.1.0)**: <https://pypi.org/project/mcp-spatial-asset-profile/0.1.0/>（インポートは `spatial_asset_v2` のまま）
+- **npm 配布名:** `@furuse-kazufumi/mcp-spatial-asset-profile` — **未公開**（npm Trusted Publisher の登録および初回公開は今後実施）
 - 公開は手動ワークフロー `.github/workflows/publish-packages.yml` から実行します。
 - PyPI は **Trusted Publishing (OIDC)** を使う想定です。事前に PyPI 側でリポジトリ／ワークフロー／環境名（`pypi`）を登録してください。
 - npm は **Trusted Publishing (OIDC)** を推奨します。npm 側でリポジトリ／ワークフロー名 `publish-packages.yml` を Trusted Publisher として登録すれば、`NPM_TOKEN` シークレットは不要です（provenance も自動付与）。Trusted Publishing が使えない場合のみ、Automation token を `NPM_TOKEN` として登録するレガシー方式にフォールバックしてください。
 - ローカル検証は `python -m build` および `npm pack --dry-run` で行えます。CI でも同じチェックを実施しています。
-- 初回公開はリポジトリ管理者が手動で実施してください。トークンや OIDC 設定が完了するまで自動公開は行われません。
+- PyPI の初回公開は完了済み（v0.1.0）です。npm の初回公開はリポジトリ管理者が Trusted Publisher 設定後に手動で実施してください。

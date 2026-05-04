@@ -27,7 +27,7 @@
 
 **包与发布**
 
-- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) *(发布就绪，首次发布待执行)*
+- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) —— **已发布 (v0.1.0)**：`pip install mcp-spatial-asset-profile`
 - npm: [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile) *(发布就绪，首次发布待执行)*
 - GitHub 发布: [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
 - 发布指南: [`docs/package-publication.md`](docs/package-publication.md)
@@ -140,10 +140,9 @@ Schema 可与任何 JSON Schema 2020-12 验证器（如 `ajv`、`jsonschema`）�
 
 ### Python SDK
 
-PyPI 包名为 **[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)**（导入名仍为 `spatial_asset_v2`）。
+已在 PyPI 发布，包名为 **[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)**（首发版本：**v0.1.0**，导入名仍为 `spatial_asset_v2`）。
 
 ```bash
-# PyPI 发布后:
 pip install mcp-spatial-asset-profile
 # 启用 JSON Schema 验证:
 pip install "mcp-spatial-asset-profile[validate]"

@@ -2,7 +2,7 @@
 
 Reference Python SDK for the **[MCP Spatial Asset Profile v2](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile)** — a JSON envelope format for 3D / spatial assets in Model Context Protocol (MCP) tool ecosystems.
 
-- **Distribution name (PyPI):** [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)
+- **Distribution name (PyPI):** [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) — **published, v0.1.0**
 - **Import package:** `spatial_asset_v2`
 - **TypeScript counterpart:** [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile)
 - **Spec & repository:** <https://github.com/furuse-kazufumi/mcp-spatial-asset-profile>
@@ -12,7 +12,7 @@ Reference Python SDK for the **[MCP Spatial Asset Profile v2](https://github.com
 
 ## Installation
 
-Once published to PyPI:
+Install from PyPI (<https://pypi.org/project/mcp-spatial-asset-profile/>):
 
 ```bash
 pip install mcp-spatial-asset-profile

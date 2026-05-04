@@ -27,7 +27,7 @@
 
 **パッケージとリリース**
 
-- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) *(公開準備済み・初回リリース予定)*
+- PyPI: [`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/) — **公開済み (v0.1.0)**: `pip install mcp-spatial-asset-profile`
 - npm: [`@furuse-kazufumi/mcp-spatial-asset-profile`](https://www.npmjs.com/package/@furuse-kazufumi/mcp-spatial-asset-profile) *(公開準備済み・初回リリース予定)*
 - GitHub リリース: [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
 - 公開手順: [`docs/package-publication.md`](docs/package-publication.md)
@@ -140,10 +140,9 @@ mcp-spatial-asset-profile/
 
 ### Python SDK
 
-PyPI 配布名は **[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)** です（インポートは従来どおり `spatial_asset_v2`）。
+PyPI 配布名 **[`mcp-spatial-asset-profile`](https://pypi.org/project/mcp-spatial-asset-profile/)** として公開済みです（初回リリース: **v0.1.0**、インポートは従来どおり `spatial_asset_v2`）。
 
 ```bash
-# PyPI 公開後:
 pip install mcp-spatial-asset-profile
 # JSON Schema 検証を有効化:
 pip install "mcp-spatial-asset-profile[validate]"
