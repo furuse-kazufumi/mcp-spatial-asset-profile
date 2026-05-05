@@ -32,6 +32,18 @@ It builds on **[mcp-3d v1](https://github.com/puruyan2525/mcp-3d)** (Claude Code
 - GitHub release: [`v0.1.0-poc`](https://github.com/furuse-kazufumi/mcp-spatial-asset-profile/releases/tag/v0.1.0-poc)
 - Publication guide: [`docs/package-publication.md`](docs/package-publication.md)
 
+### Looking ahead: v3 (drafting)
+
+A v3 line of work is underway, extending v2 toward **multi-event-camera spatial / motion evidence**. v3 is strictly additive on top of v2 and currently in the RFC stage.
+
+- RFC and design docs: [`docs/v3/`](docs/v3/)
+- JSON Schemas (Draft 2020-12): [`spec/v3/`](spec/v3/) — asset envelopes, camera rig, scene, ground truth
+- Reference Python SDK skeleton: [`sdk/python/spatial_asset_v3/`](sdk/python/spatial_asset_v3/)
+- Synthetic debug demo (Layer 1 reference fixture): [`samples/v3/synthetic-debug-demo/`](samples/v3/synthetic-debug-demo/)
+- Tests: `tests/test_v3_*.py`
+
+v3 is **drafts only** — no published packages yet. Feedback on the RFC is welcome via GitHub issues / discussions.
+
 ---
 
 ## What is this profile?

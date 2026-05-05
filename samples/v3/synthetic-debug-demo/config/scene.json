@@ -1,0 +1,18 @@
+{
+  "_comment": "Reference scene for the synthetic debug demo. One point object on a straight linear trajectory across a static background. All positions are in world frame, metres.",
+  "duration_us": 1000000,
+  "seed": 42,
+  "background_luminance": 0.5,
+  "trajectories": [
+    {
+      "id": "obj0",
+      "type": "linear",
+      "start_us": 0,
+      "end_us": 1000000,
+      "start_pos": [-0.5, 0.0, 3.0],
+      "end_pos":   [ 0.5, 0.0, 3.0],
+      "point_radius_m": 0.02,
+      "luminance": 1.0
+    }
+  ]
+}
