@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp-3d/spec/v3/spatial-asset-v3.schema.json",
+  "title": "SpatialAssetV3",
+  "description": "MCP Spatial Asset Profile v3 — multi-event-camera spatial/motion evidence envelope",
+  "type": "object",
+  "required": ["version", "kind"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "3.0",
+      "description": "Profile schema version"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["event-frame-2d", "event-tracklet-3d", "motion-evidence-3d", "vllm-summary"],
+      "description": "Asset type discriminator"
+    },
+    "id": {
+      "type": "string",
+      "description": "Stable identifier (URI or UUID)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable asset name"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 creation timestamp"
+    },
+    "derived_from": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/AssetRef" },
+      "description": "Upstream assets this asset was derived from (DAG edges, source direction)"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Arbitrary domain metadata"
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/$defs/EventFrame2D" },
+    { "$ref": "#/$defs/EventTracklet3D" },
+    { "$ref": "#/$defs/MotionEvidence3D" },
+    { "$ref": "#/$defs/VllmSummary" }
+  ],
+  "unevaluatedProperties": false,
+  "$defs": {
+
+    "AssetRef": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the referenced upstream asset"
+        },
+        "role": {
+          "type": "string",
+          "description": "How this upstream asset was used (e.g. 'event-stream', 'event-frame-2d')"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "Vec3": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "[x, y, z]"
+    },
+
+    "Mat3x3": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "3x3 matrix (row-major), e.g. covariance"
+    },
+
+    "BoundingBox3D": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "$ref": "#/$defs/Vec3" },
+        "max": { "$ref": "#/$defs/Vec3" }
+      },
+      "additionalProperties": false
+    },
+
+    "TimeWindow": {
+      "type": "object",
+      "required": ["t_start_us", "t_end_us"],
+      "properties": {
+        "t_start_us": {
+          "type": "integer",
+          "description": "Window start in microseconds (sequence-relative or epoch-relative)"
+        },
+        "t_end_us": {
+          "type": "integer",
+          "description": "Window end in microseconds"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "CameraIntrinsics": {
+      "type": "object",
+      "required": ["fx", "fy", "cx", "cy"],
+      "properties": {
+        "fx": { "type": "number", "exclusiveMinimum": 0, "description": "Focal length x (pixels)" },
+        "fy": { "type": "number", "exclusiveMinimum": 0, "description": "Focal length y (pixels)" },
+        "cx": { "type": "number", "description": "Principal point x (pixels)" },
+        "cy": { "type": "number", "description": "Principal point y (pixels)" },
+        "distortion_model": {
+          "type": "string",
+          "enum": ["none", "radtan", "equidist", "fisheye"],
+          "description": "Lens distortion model"
+        },
+        "distortion_coeffs": {
+          "type": "array",
+          "items": { "type": "number" },
+          "description": "Distortion coefficients (model-dependent order)"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "SensorSpec": {
+      "type": "object",
+      "required": ["resolution", "intrinsics"],
+      "properties": {
+        "resolution": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "[width, height] in pixels"
+        },
+        "intrinsics": { "$ref": "#/$defs/CameraIntrinsics" }
+      },
+      "additionalProperties": false
+    },
+
+    "Representation2D": {
+      "type": "object",
+      "required": ["format", "uri"],
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["npy", "png", "json-inline"],
+          "description": "npy = NumPy array file; png = 8/16-bit grayscale image; json-inline = 2D array embedded in 'data'"
+        },
+        "uri": {
+          "type": "string",
+          "description": "Relative or absolute path / URI to the data file"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Hex SHA-256 of the referenced file"
+        },
+        "shape": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "minItems": 2,
+          "maxItems": 3,
+          "description": "[H, W] or [H, W, C]"
+        },
+        "dtype": {
+          "type": "string",
+          "description": "NumPy dtype string, e.g. 'float32', 'int16'"
+        },
+        "data": {
+          "description": "Inline 2D data array (only for json-inline format)"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "TrackletPoint": {
+      "type": "object",
+      "required": ["t_us", "position"],
+      "properties": {
+        "t_us": {
+          "type": "integer",
+          "description": "Timestamp in microseconds"
+        },
+        "position": {
+          "$ref": "#/$defs/Vec3",
+          "description": "3D position in the asset's CRS"
+        },
+        "covariance": {
+          "$ref": "#/$defs/Mat3x3",
+          "description": "3x3 position covariance matrix (metres²)"
+        },
+        "reprojection_error_px": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Mean reprojection error across source cameras (pixels)"
+        },
+        "source_cameras": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2,
+          "description": "Camera IDs that contributed to this triangulation point"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "EventFrame2D": {
+      "required": ["camera_id", "time_window", "accumulator", "sensor"],
+      "properties": {
+        "kind": { "const": "event-frame-2d" },
+        "camera_id": {
+          "type": "string",
+          "description": "ID of the event camera that produced this frame (matches cameras.json)"
+        },
+        "time_window": { "$ref": "#/$defs/TimeWindow" },
+        "accumulator": {
+          "type": "string",
+          "enum": ["polarity-signed", "count", "time-surface"],
+          "description": "How events were accumulated: polarity-signed sums +1/-1; count ignores polarity; time-surface stores most recent event timestamp"
+        },
+        "sensor": {
+          "$ref": "#/$defs/SensorSpec",
+          "description": "Sensor intrinsics embedded for self-contained interpretation"
+        },
+        "event_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of events accumulated in this window"
+        },
+        "representations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Representation2D" },
+          "description": "Concrete data files for the accumulated frame"
+        }
+      }
+    },
+
+    "EventTracklet3D": {
+      "required": ["tracklet_id", "camera_ids", "crs", "points"],
+      "properties": {
+        "kind": { "const": "event-tracklet-3d" },
+        "tracklet_id": {
+          "type": "string",
+          "description": "Unique tracklet identifier within the bundle"
+        },
+        "camera_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2,
+          "description": "Camera IDs used for multi-view triangulation"
+        },
+        "crs": {
+          "type": "string",
+          "description": "Coordinate reference system for 3D positions (e.g. 'world', 'local-ENU')"
+        },
+        "time_range": { "$ref": "#/$defs/TimeWindow" },
+        "points": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/TrackletPoint" },
+          "minItems": 1,
+          "description": "Time-ordered sequence of triangulated 3D positions"
+        }
+      }
+    },
+
+    "MotionEvidence3D": {
+      "required": ["tracklet_ids", "crs"],
+      "properties": {
+        "kind": { "const": "motion-evidence-3d" },
+        "tracklet_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "IDs of constituent event-tracklet-3d assets"
+        },
+        "crs": {
+          "type": "string",
+          "description": "Coordinate reference system (must match constituent tracklets)"
+        },
+        "time_range": { "$ref": "#/$defs/TimeWindow" },
+        "scene_bounds": {
+          "$ref": "#/$defs/BoundingBox3D",
+          "description": "Spatial bounding box of all tracklets combined"
+        }
+      }
+    },
+
+    "VllmSummary": {
+      "required": ["text"],
+      "properties": {
+        "kind": { "const": "vllm-summary" },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Natural language description generated by the VLLM"
+        },
+        "language": {
+          "type": "string",
+          "description": "BCP-47 language tag (e.g. 'en', 'ja')"
+        },
+        "provenance": {
+          "type": "object",
+          "description": "Record of how this summary was generated — important for reproducibility",
+          "properties": {
+            "model": {
+              "type": "string",
+              "description": "Model name or 'mock'"
+            },
+            "prompt_version": {
+              "type": "string",
+              "description": "Prompt template version identifier"
+            },
+            "temperature": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "prompt_hash": {
+              "type": "string",
+              "description": "SHA-256 of the rendered prompt (first 16 hex chars acceptable)"
+            },
+            "tokens_input": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tokens_output": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+
+  }
+}

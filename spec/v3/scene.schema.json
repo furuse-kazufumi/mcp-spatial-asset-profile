@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp-3d/spec/v3/scene.schema.json",
+  "title": "SyntheticSceneConfig",
+  "description": "Configuration for the synthetic multi-event-camera debug demo: scene duration, RNG seed, background luminance, and 3D object trajectories.",
+  "type": "object",
+  "required": ["duration_us", "trajectories"],
+  "properties": {
+    "duration_us": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "description": "Total scene duration in microseconds"
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Random seed for all stochastic operations (noise, hot pixels, etc.). Fixed seed = reproducible output.",
+      "default": 42
+    },
+    "background_luminance": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Constant background log-luminance in [0, 1]. Objects with different luminance generate events as they move across this background.",
+      "default": 0.5
+    },
+    "trajectories": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Trajectory" },
+      "description": "One or more moving point objects with known 3D trajectories"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+
+    "Vec3": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "[x, y, z] in metres (world frame)"
+    },
+
+    "TrajectoryBase": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique trajectory/object identifier referenced in ground-truth.json"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["linear", "circular", "zigzag"]
+        },
+        "start_us": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Trajectory activation time (microseconds from scene start)",
+          "default": 0
+        },
+        "end_us": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Trajectory deactivation time (microseconds from scene start). Must be <= duration_us."
+        },
+        "point_radius_m": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Object radius for event generation (metres). Larger radius produces more events per time step.",
+          "default": 0.02
+        },
+        "luminance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Object log-luminance. Contrast with background_luminance drives event polarity.",
+          "default": 1.0
+        }
+      }
+    },
+
+    "LinearTrajectory": {
+      "allOf": [
+        { "$ref": "#/$defs/TrajectoryBase" },
+        {
+          "required": ["start_pos", "end_pos"],
+          "properties": {
+            "type": { "const": "linear" },
+            "start_pos": {
+              "$ref": "#/$defs/Vec3",
+              "description": "World-frame position at start_us"
+            },
+            "end_pos": {
+              "$ref": "#/$defs/Vec3",
+              "description": "World-frame position at end_us"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+
+    "CircularTrajectory": {
+      "allOf": [
+        { "$ref": "#/$defs/TrajectoryBase" },
+        {
+          "required": ["center", "radius_m", "axis"],
+          "properties": {
+            "type": { "const": "circular" },
+            "center": {
+              "$ref": "#/$defs/Vec3",
+              "description": "Centre of the circular orbit (world frame)"
+            },
+            "radius_m": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Orbit radius in metres"
+            },
+            "axis": {
+              "type": "string",
+              "enum": ["XY", "XZ", "YZ"],
+              "description": "Plane of circular motion (normal axis = the remaining axis)"
+            },
+            "angular_velocity_rad_s": {
+              "type": "number",
+              "description": "Angular velocity in rad/s. Positive = counter-clockwise when viewed from positive normal axis.",
+              "default": 1.0
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+
+    "ZigzagTrajectory": {
+      "allOf": [
+        { "$ref": "#/$defs/TrajectoryBase" },
+        {
+          "required": ["waypoints"],
+          "properties": {
+            "type": { "const": "zigzag" },
+            "waypoints": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Vec3" },
+              "minItems": 2,
+              "description": "Ordered world-frame waypoints. Object moves at constant speed between them, cycling over [start_us, end_us]."
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+
+    "Trajectory": {
+      "oneOf": [
+        { "$ref": "#/$defs/LinearTrajectory" },
+        { "$ref": "#/$defs/CircularTrajectory" },
+        { "$ref": "#/$defs/ZigzagTrajectory" }
+      ]
+    }
+
+  }
+}

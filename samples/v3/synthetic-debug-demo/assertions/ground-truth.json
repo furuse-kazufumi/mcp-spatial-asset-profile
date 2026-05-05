@@ -1,0 +1,55 @@
+{
+  "_comment": "Analytical ground truth for the reference synthetic demo. Generated from cameras.json + scene.json by exact projection formulas (no approximation). Used by the assertion harness to evaluate estimation accuracy.",
+  "scene_duration_us": 1000000,
+  "seed": 42,
+  "trajectories": [
+    {
+      "id": "obj0",
+      "sample_points": [
+        {"t_us":       0, "position": [-0.5,   0.0, 3.0]},
+        {"t_us":  250000, "position": [-0.25,  0.0, 3.0]},
+        {"t_us":  500000, "position": [ 0.0,   0.0, 3.0]},
+        {"t_us":  750000, "position": [ 0.25,  0.0, 3.0]},
+        {"t_us": 1000000, "position": [ 0.5,   0.0, 3.0]}
+      ],
+      "total_arc_length_m": 1.0
+    }
+  ],
+  "camera_projections": [
+    {
+      "camera_id": "cam0",
+      "trajectory_id": "obj0",
+      "sample_points": [
+        {"t_us":       0, "pixel": [139.666667, 130.0], "visible": true},
+        {"t_us":  250000, "pixel": [156.333333, 130.0], "visible": true},
+        {"t_us":  500000, "pixel": [173.0,      130.0], "visible": true},
+        {"t_us":  750000, "pixel": [189.666667, 130.0], "visible": true},
+        {"t_us": 1000000, "pixel": [206.333333, 130.0], "visible": true}
+      ]
+    },
+    {
+      "camera_id": "cam1",
+      "trajectory_id": "obj0",
+      "sample_points": [
+        {"t_us":       0, "pixel": [106.333333, 130.0], "visible": true},
+        {"t_us":  250000, "pixel": [123.0,      130.0], "visible": true},
+        {"t_us":  500000, "pixel": [139.666667, 130.0], "visible": true},
+        {"t_us":  750000, "pixel": [156.333333, 130.0], "visible": true},
+        {"t_us": 1000000, "pixel": [173.0,      130.0], "visible": true}
+      ]
+    }
+  ],
+  "expected_assets": {
+    "tracklet_count": 1,
+    "tracklets": [
+      {
+        "trajectory_id": "obj0",
+        "min_point_count": 5,
+        "max_position_error_m": 0.015,
+        "max_time_error_us": 5000,
+        "max_reprojection_error_px": 1.0
+      }
+    ],
+    "derived_from_dag_closed": true
+  }
+}

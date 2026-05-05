@@ -1,0 +1,47 @@
+{
+  "_comment": "Reference camera rig for the synthetic debug demo. Two virtual DVS-sized cameras on a horizontal stereo baseline. T_world_cam follows T_target_source convention: transforms a point from camera frame to world frame.",
+  "cameras": [
+    {
+      "id": "cam0",
+      "resolution": [346, 260],
+      "intrinsics": {
+        "fx": 200.0,
+        "fy": 200.0,
+        "cx": 173.0,
+        "cy": 130.0,
+        "distortion_model": "none",
+        "distortion_coeffs": []
+      },
+      "T_world_cam": [
+        [1.0, 0.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0, 0.0],
+        [0.0, 0.0, 1.0, 0.0],
+        [0.0, 0.0, 0.0, 1.0]
+      ],
+      "time_offset_us": 0,
+      "contrast_threshold_pos": 0.15,
+      "contrast_threshold_neg": 0.15
+    },
+    {
+      "id": "cam1",
+      "resolution": [346, 260],
+      "intrinsics": {
+        "fx": 200.0,
+        "fy": 200.0,
+        "cx": 173.0,
+        "cy": 130.0,
+        "distortion_model": "none",
+        "distortion_coeffs": []
+      },
+      "T_world_cam": [
+        [1.0, 0.0, 0.0, 0.5],
+        [0.0, 1.0, 0.0, 0.0],
+        [0.0, 0.0, 1.0, 0.0],
+        [0.0, 0.0, 0.0, 1.0]
+      ],
+      "time_offset_us": 0,
+      "contrast_threshold_pos": 0.15,
+      "contrast_threshold_neg": 0.15
+    }
+  ]
+}
